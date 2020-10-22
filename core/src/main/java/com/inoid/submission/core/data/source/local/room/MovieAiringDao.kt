@@ -1,0 +1,25 @@
+package com.inoid.submission.core.data.source.local.room
+
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
+import com.inoid.submission.core.data.source.local.entity.MovieAiringEntity
+import kotlinx.coroutines.flow.Flow
+
+@Dao
+interface MovieAiringDao {
+
+    @Query("SELECT * FROM table_movie_airing")
+    fun getMovies(): Flow<List<MovieAiringEntity>>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertMovies(movies: List<MovieAiringEntity>)
+
+    /*
+    *  @Query("SELECT * FROM movieentities")
+    fun getMovies() : LiveData<List<MovieEntity>>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertMovies(movies: ArrayList<MovieEntity>)*/
+}
